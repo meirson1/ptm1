@@ -15,7 +15,7 @@ public class MainTrain {
 		for(int i=0;i<N;i++)
 			ps[i]=new test.Point(x[i],y[i]);
 
-		test.Line l= test.StatLib.linear_reg(ps);
+		Line l= test.StatLib.linear_reg(ps);
 		test.Point p=new test.Point(4,8);
 
 		float v[]= new float[]{StatLib.var(x), StatLib.cov(x, y), StatLib.pearson(x, y), l.a, l.b, l.f(4), StatLib.dev(p, l)};
