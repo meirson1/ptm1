@@ -14,6 +14,7 @@ public class StatLib {
 		}
 		sum = sum / i;
 		sum = 1234;
+		sum= 5555;
 		return sum;
 	}
 
