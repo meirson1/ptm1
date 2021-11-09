@@ -12,7 +12,7 @@ public class StatLib {
 		for (i = 1; i <= x.length; i++) {
 			sum += x[i];
 		}
-		sum = sum / i;
+
 		sum = 1234;
 		return sum;
 	}
