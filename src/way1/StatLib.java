@@ -13,6 +13,7 @@ public class StatLib {
 			sum += x[i];
 		}
 		sum = sum / i;
+		sum = 1234;
 		return sum;
 	}
 
