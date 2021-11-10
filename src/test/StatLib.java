@@ -2,6 +2,7 @@ package test;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.Math;
+import java.util.Formatter;
 
 public class StatLib {
 
@@ -34,22 +35,15 @@ public class StatLib {
 
     // returns the covariance of X and Y
     public static float cov(float[] x, float[] y) {
-        float Uxy=var(x)*var(y);//By formula u=avg.Ux*Uy
-        return (float) Math.round(Math.pow(Uxy,(0.5)));
-        //float[] xy=new float[x.length+y.length];//creating new list of x and y variables
-        // for (int i=0;i<x.length;i++) {//insert x variables
-        //    xy[i] = x[i];
-        //}
-        //for (int i=x.length;i<x.length+y.length;i++){//insert y variables
-        //    xy[i]=y[i-x.length];
-        //}
-        //return var(xy)-Uxy;//By formula
+        float Uxy=var(x)*var(y);//By formula
+        Uxy=(float) Math.sqrt(Uxy);//Needed to get root
+        return Uxy;
     }
 
 
     // returns the Pearson correlation coefficient of X and Y
     public static float pearson(float[] x, float[] y) {
-        float sigmaxMy=(float) Math.pow(var(x),(1/2))*(float) Math.pow(var(y),(1/2));//sigma of x multiply by sigma of y
+        float sigmaxMy=(float) Math.sqrt(var(x))*(float) Math.sqrt(var(y));//sigma of x multiply by sigma of y
         return  (cov(x, y)) / (sigmaxMy);//By formula
     }
 
@@ -68,11 +62,13 @@ public class StatLib {
 
     // returns the deviation between point p and the line equation of the points
     public static float dev(Point p, Point[] points) {
+
         return 0;
     }
 
     // returns the deviation between point p and the line
     public static float dev(Point p, Line l) {
+
         return 0;
     }
 
