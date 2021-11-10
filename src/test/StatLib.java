@@ -29,20 +29,21 @@ public class StatLib {
             x2[i]= (float) Math.pow(x2[i],2);
         }
         float u2= (float) Math.pow(u,2);//by formula u^2
-        return avg(x)-u2;
+        return avg(x2)-u2;
     }
 
     // returns the covariance of X and Y
     public static float cov(float[] x, float[] y) {
-        float Uxy=avg(x)*avg(y);//By formula u=avg.Ux*Uy
-        float[] xy=new float[x.length+y.length];//creating new list of x and y variables
-        for (int i=0;i<x.length;i++) {//insert x variables
-            xy[i] = x[i];
-        }
-        for (int i=x.length;i<x.length+y.length;i++){//insert y variables
-            xy[i]=y[i-x.length];
-        }
-        return var(x)-Uxy;//By formula
+        float Uxy=var(x)*var(y);//By formula u=avg.Ux*Uy
+        return (float) Math.round(Math.pow(Uxy,(0.5)));
+        //float[] xy=new float[x.length+y.length];//creating new list of x and y variables
+        // for (int i=0;i<x.length;i++) {//insert x variables
+        //    xy[i] = x[i];
+        //}
+        //for (int i=x.length;i<x.length+y.length;i++){//insert y variables
+        //    xy[i]=y[i-x.length];
+        //}
+        //return var(xy)-Uxy;//By formula
     }
 
 
