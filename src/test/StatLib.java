@@ -1,7 +1,7 @@
 package test;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.Contract;
+//import org.jetbrains.annotations.NotNull;
 
 import java.lang.Math;
 
@@ -11,8 +11,7 @@ public class StatLib {
 
     // simple average
     //@org.jetbrains.annotations.Contract(pure = true)
-    @Contract(pure = true)
-    public static float avg(float @NotNull [] x) {
+    public static float avg(float [] x) {
         float sum = 0;
         int i = 0;
         for (i = 0; i < x.length; i++) {
@@ -33,7 +32,12 @@ public class StatLib {
             x2[i]= (float) Math.pow(x2[i],2);
         }
         float u2= (float) Math.pow(u,2);//by formula u^2
-        return avg(x2)-u2;
+        float z=avg(x2)-u2;
+        z*=100;
+        int Z=(int)z;
+        z=(float) Z;
+        z/=100;
+        return z;
     }
 
     // returns the covariance of X and Y
@@ -55,8 +59,7 @@ public class StatLib {
     }
 
     // performs a linear regression and returns the line equation
-    @Contract("_ -> new")
-    public static @NotNull Line linear_reg(Point @NotNull [] points) {
+    public static Line linear_reg(Point [] points) {
         float[] x=new float[points.length];//list of x
         float[] y=new float[points.length];//list of y
         for (int i=0;i<x.length;i++){//Put the variable of the points in x and y
@@ -75,8 +78,7 @@ public class StatLib {
     }
 
     // returns the deviation between point p and the line
-    @Contract(pure = true)
-    public static float dev(@NotNull Point p, @NotNull Line l) {
+    public static float dev(Point p, Line l) {
         float y= (float) (l.a*p.x+l.b);
         return Math.abs(p.y-y);
     }
