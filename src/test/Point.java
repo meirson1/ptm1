@@ -1,4 +1,4 @@
-package way1;
+package test;
 
 public class Point {
 	public final float x,y;
