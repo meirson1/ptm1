@@ -44,7 +44,7 @@ public class MainTrain {
 		}catch(IOException e) {}
 	}
 
-	static void checkCorrelationTrain(CorrelatedFeatures c,String f1, String f2, float a, float b){
+	static void checkCorrelationTrain(CorrelatedFeatures c,String f1, String f2, float a, float b){//2,40
 		if(c.feature1.equals(f1)){
 			if(!c.feature2.equals(f2))
 				System.out.println("wrong correlated feature of "+f1+" (-20)");

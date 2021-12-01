@@ -1,20 +1,18 @@
 package test;
 
-import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class TimeSeries {
 
-	HashMap<String,float[]> HM=new HashMap<String,float[]>();
+	HashMap<Character,float[]> HM=new HashMap<Character,float[]>();
 
 	public TimeSeries(String csvFileName) {
 		int k=0;
-		int i,j;
+		int i=0;
 		float[] a=new float[100];
 		float[] b=new float[100];
 		float[] c=new float[100];
@@ -36,18 +34,20 @@ public class TimeSeries {
 							break;
 						case 2:
 							c[k]=Float.parseFloat(row[i]);
+							break;
 						case 3:
 							d[k]=Float.parseFloat(row[i]);
+							break;
 						default:
 							break;
 					}
 				}
 				k++;
 			}
-			HM.put("A",a);
-			HM.put("B",b);
-			HM.put("C",c);
-			HM.put("D",d);
+			HM.put('A',a);
+			HM.put('B',b);
+			HM.put('C',c);
+			HM.put('D',d);
 		}
 		catch (FileNotFoundException e){
 			e.printStackTrace();
