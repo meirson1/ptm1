@@ -7,38 +7,38 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 
 	@Override
 	public void learnNormal(TimeSeries ts) {
-		float thresHold=0;
-		float y;
-		float max=0;
-		Point[] p = new Point[100];
-		for (int i = 1; i <= 4; i++) {
-			for (int j = i + 1; j <= 4; j++) {
-				y=Math.abs(StatLib.pearson(ts.HM.get((char) (i+64)),ts.HM.get((char)(j+64))));
-				for (int s = 0; s < 100; s++)
-					p[s] = new Point(ts.HM.get((char) (i + 64))[s], ts.HM.get((char) (j + 64))[s]);//use dev for threshold
-				Line lin=StatLib.linear_reg(p);
-				for (int s=0;s<100;s++){
-					thresHold=StatLib.dev(p[i],lin);
-					if (thresHold>max)
-						max=thresHold;
+		float SendPearsonCorrelated;
+		CorrelatedFeatures c=null;
+		for (int i = 1; i <= ts.HM.size(); i++) {
+			SendPearsonCorrelated=(float) 0.9;
+			for (int j = i + 1; j <= ts.HM.size(); j++) {
+				float f1[]=ts.HM.get(Character.toString((char) (i + 64)));
+				float f2[]=ts.HM.get(Character.toString((char) (j+64)));
+				if (Math.abs(StatLib.pearson(f1,f2)) >SendPearsonCorrelated) {
+					SendPearsonCorrelated = Math.abs(StatLib.pearson(f1,f2));
+					Line line=StatLib.linear_reg(f1,f2);
+					float MaxThresHold=this.CheckMaxThresHold(line,f1,f2)*(float)1.1;
+					c=new CorrelatedFeatures(String.valueOf((char)(i+64)),String.valueOf((char)(j+64)),SendPearsonCorrelated,line,MaxThresHold);
 				}
-				//thresHold = thresHolder(ts.HM.get((char) (i + 64)), ts.HM.get((char) (j + 64)), StatLib.linear_reg(p));
-				CF.add(new CorrelatedFeatures(String.valueOf((char) (i + 64)), String.valueOf((char) (j + 64)), y, StatLib.linear_reg(p), thresHold));
+
 			}
+			if (this.CF==null)
+				this.CF=new ArrayList<CorrelatedFeatures>();
+			if (SendPearsonCorrelated>0.9)
+				CF.add(c);
 		}
+
 	}
 
-	private float thresHolder(float[] x, float[] y, Line line) {
-		float max=0;
-		float check;
-		for (int i=0;i<x.length;i++){
-			for (int j=0;j<y.length;j++){
-				check=Math.abs(2);
-				if (check>max)
-					max=check;
-			}
+	private float CheckMaxThresHold(Line line, float[] f1, float[] f2) {
+		float MaxThresHold=0;
+		for (int k = 0; k < 100; k++) {
+			Point point = new Point(f1[k], f2[k]);
+			float ThresHold = StatLib.dev(point, line);//check max threshold
+			if (MaxThresHold < ThresHold)
+				MaxThresHold = ThresHold;
 		}
-		return max;
+		return MaxThresHold;
 	}
 
 
