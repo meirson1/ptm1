@@ -1,7 +1,5 @@
 package test;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import java.lang.Math;
 
@@ -76,8 +74,10 @@ public class StatLib {
 
     // returns the deviation between point p and the line
     public static float dev(Point p,Line l){
-        return (float)(Math.abs((l.a*p.x+l.b)-p.y));
-    }
+        return (float)(Math.sqrt(Math.pow((l.a*p.x+l.b)-p.y,2)));
+        //Math.abs((l.a*p.x+l.b)-p.y);
+    }   //threshold=l.a*p.x+l.b-p.y
+        //threshold-l.b=l.a*p.x-p.y
 
     /*// simple average
     //@org.jetbrains.annotations.Contract(pure = true)
@@ -150,8 +150,8 @@ public class StatLib {
 
     // returns the deviation between point p and the line
     public static float dev(Point p, Line l) {
-        float y= (float) (l.a*p.x+l.b);
-        return Math.abs(y-p.y);
+        float y= (float) ;
+        return Math.abs((l.a*p.x+l.b)-p.y);
     }*/
 
 }
